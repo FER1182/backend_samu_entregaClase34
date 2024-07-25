@@ -1,0 +1,15 @@
+<h1>Carrito de Compras</h1>
+<ul>
+    {{#each cart}}
+    <li>
+        <h2>{{this.product.title}}</h2>
+        <p>Precio: {{this.product.price}}</p>
+        <p>Cantidad: {{this.quantity}}</p>
+        
+    </li>
+    {{/each}}
+</ul>
+<p>Total: $ {{totalCart}}</p>
+<form action="/api/carts/{{cartId}}/purchase" method="post">
+    <button type="submit" class="add-to-cart">Finalizar compra</button>
+</form>

@@ -1,0 +1,49 @@
+{{#if user}}
+<header>
+    <p>Bienvenido ! {{user.first_name}} {{user.last_name}} !</p>
+    <p>Rol : {{user.role}}</p>
+
+    <a href="/api/sessions/logout"> Logout</a>
+</header>
+{{/if}}
+
+<hr>
+
+<h1>Productos</h1>
+<div class="card-group">
+    {{#each productoFinal}}
+    <div>
+        <div class="card" padding: "1em" style="width: 15rem">
+            <img src={{this.rest.img}} class="card-img-top" height="200px" alt="hola">
+            <div class="card-body">
+
+                <h5 class="card-title">{{this.rest.title}}</h5>
+                <p>descripcion {{this.rest.description}}</p>
+                <p>precio : $ {{this.rest.price}}</p>
+                <p>categoria : {{this.rest.category}}</p>
+                <a href="/api/products/{{this._id}}">
+                    <button>Ver detalles</button>
+                </a>
+
+                <form action="/api/carts/{{idCarrito}}/product/{{this._id}}" method="post">
+                    <button type="submit" class="add-to-cart">agregar al Carrito</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+    <li class="nav-item">
+        <a class="nav-link" href="/api/carts/{{user.idCart}}">Ver Carrito</a>
+    </li>
+</div>
+{{#if hasPrevPage}}
+<a href="/api/products?limit={{limit}}&page={{prevPage}}"> Anterior </a>
+{{/if}}
+
+{{#if hasNextPage}}
+<a href="/api/products?limit={{limit}}&page={{nextPage}}"> Siguiente </a>
+{{/if}}
+
+<p> pagina {{currentPage}} de {{totalPages}}</p>
